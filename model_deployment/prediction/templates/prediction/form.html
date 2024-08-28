@@ -1,0 +1,37 @@
+{% extends 'prediction/base.html' %}
+
+{% block title%}
+Manual filling of data
+{% endblock %}
+
+{% block content%}
+  <body>
+    <div class="container">
+        <h1 class="my-4">Manual Data Entry Form</h1>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <p>Please correct the errors below:</p>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+{% endblock %}

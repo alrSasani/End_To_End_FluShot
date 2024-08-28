@@ -1,0 +1,40 @@
+{% extends 'prediction/base.html' %}
+
+{% block title%}
+CSV file uplading
+{% endblock %}
+
+{% block content%}
+<body>
+    <div class="container">
+        <h1 class="my-4">Upload CSV File</h1>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <p>Please correct the errors below:</p>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="csv_file">Upload CSV file:</label>
+                <input type="file" name="csv_file" id="csv_file" class="form-control-file" accept=".csv">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'prediction/base.html' %}
+
+{% block title %}
+Results Page
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <h1 class="text-center">Prediction Result</h1>
+    
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Your Prediction:</h5>
+            <div class="table-responsive">
+                {{ prediction|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: auto;  
+        max-width: 100%;  
+        table-layout: fixed; 
+        border-collapse: collapse; 
+    }
+
+    th, td {
+        white-space: nowrap; 
+        text-align: center; 
+        border: 1px solid #ddd; 
+    }
+    th, td {
+        border-color: #ddd;
+    }
+    th {
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}
