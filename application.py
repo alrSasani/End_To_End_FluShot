@@ -18,4 +18,5 @@ def application():
     os.system('python model_deployment/manage.py runserver')
     
 if __name__ == "__main__":
+    os.system('python setup.py install')
     application()
