@@ -6,9 +6,8 @@ from src.pipelines import training_pipeline,mlflow_model_registry_pipeline
 
 from src.training_config import (MODELS_TO_BE_TRAINED, PARAMETER_GRID,
                                      TrainConfiguration,RawDataPathConfig)
-    
-    
-if __name__ == "__main__":
+
+def application():
     # main_path = os.getcwd()
 
     mlflow_model_registry_pipeline.register_from_training_pipeline(cv_nfold=2, iter=2, scoring='roc_auc',
@@ -17,3 +16,6 @@ if __name__ == "__main__":
     #                       save_models=True,cv_nfold=2, iter=2, scoring='roc_auc')
     
     os.system('python model_deployment/manage.py runserver')
+    
+if __name__ == "__main__":
+    application()
