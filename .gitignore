@@ -1,8 +1,7 @@
-*.ipynb
 build/
 dist/
 flu_shot_prediction.egg-info
-.ipynb*
+..ipynb_checkpoints
 agenda.md
 .DS_Store
 artifact/
