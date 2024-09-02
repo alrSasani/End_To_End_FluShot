@@ -16,21 +16,20 @@
 In this project I ahve implemented machine learning pipelines (CI/CD) for optimizing and training different
 classification models.
 </br>
+I have used pandas for exploratory data analysis EDA_Flu_Shot.ipynb
+</br>
 The information including different models, the parameter space that the model will be optimized in 
 and data that we will use for training and optimizing all are included in the src/trainin_config.py file.
 </br>
 after optimizng and training different classification models from sklearn including RandomForest, DecisionTress, SVC, different liear classification as well as Catboost classification the application save 
 the models and the preprocessing pipelines that can be used in the main application.
 </br>
-The application also register the models in mlflow with thir preformances and moves the best model to the production stage that can be used in the main application in CD pipeline for prediction.
+The application also registers the models in mlflow with their preformances and moves the best model to the production stage that can be used in the main application in CD pipeline for prediction.
 </br>
 The CI pipeloine implemented in elasticbeanstalk AWS and using its CodePipeline service.
 </br>
 The serving application implemented using Django application where the application gets the features from different methods including Filling a form manualy, uploading CSV file or uploading Json file.
 </br>
-
-
-
 
 ## Machine Learning Models
 
