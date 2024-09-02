@@ -1,5 +1,12 @@
 # Machine Learning Classification Models with Django and CI/CD Pipeline
-
+## application used:
+- python
+- pandas
+- mlflow
+- Django
+- scikit Learn
+- Catboost
+- XGBoost
 ## Table of Contents
 
 - [Overview](#overview)
