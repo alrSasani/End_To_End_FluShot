@@ -10,7 +10,8 @@ catboost_info/
 logs/
 mlflow/
 mlruns/
-*.png
+confusion_matrix_1.png
+roc_auc_curve_1.png
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
