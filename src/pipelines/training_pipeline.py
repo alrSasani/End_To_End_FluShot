@@ -17,6 +17,29 @@ from src.exceptions import CustomException
 
 def ModelTrainingPipeline(model_to_be_trained,Prameters_gris,raw_data_config,
                           save_path_config, save_models=False,cv_nfold=5, iter=10, scoring='roc_auc'):
+    """Function to train different models and optimize them in parameter space given for each models
+
+    Args:
+        model_to_be_trained (dictionary): _description_. dictionary with names of the models as keys 
+        and models as velues.
+        Prameters_gris (dictionary): _description_. dictinary that gives the name of the model as key 
+        and thir paramters as values
+        raw_data_config (RawDataPathConfig): _description_. a configuration for defining raw data
+        save_path_config (TrainConfiguration): _description_. a configuration in which we define save path
+        of the models.
+        save_models (bool, optional): _description_. Defaults to False. if the training should save the models
+        in the path of not.
+        cv_nfold (int, optional): _description_. Defaults to 5. number of cross validation in optimizing and 
+        training the models
+        iter (int, optional): _description_. Defaults to 10. number of iteration if the randomize search is 
+        used
+        scoring (str, optional): _description_. Defaults to 'roc_auc'.
+
+    Returns:
+        dictionary: _description_. a dictionary inclueing all the mdoels optimized and their performace merics
+        as well as their best parameters and optimizers.
+        this funciton also saves the models in a given path
+    """
     try:
         logging.info("Training and optimizing the models...")
         # # data ingestion:
@@ -48,6 +71,8 @@ def ModelTrainingPipeline(model_to_be_trained,Prameters_gris,raw_data_config,
         label_names  = ['h1n1','seasonal']
 
         metrics_df = pd.DataFrame()
+
+        # loopoing through all the models to be optimized
         for model_name,model in model_to_be_trained.items():
             features = features_rest.copy()
             transformer = default_transformer
@@ -84,7 +109,8 @@ def ModelTrainingPipeline(model_to_be_trained,Prameters_gris,raw_data_config,
                     save_model_data(save_path,optimizer,transformer,lbl_name)
                     temp_df["save_path"] = save_path
                 metrics_df = pd.concat([metrics_df, temp_df], axis=0)
-        #save metrics in a csv file
+
+        #save metrics in a csv file in case needed for assesing models
         metrics_df.to_csv(os.path.join(save_path_config.save_artifact_path,'models_metrics.csv'))
         return resu_dict
     

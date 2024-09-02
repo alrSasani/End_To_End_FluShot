@@ -17,24 +17,38 @@ from src.training_config import SchemaDataType, DataTransformationConfiguration
 
 
 class GetPipeline(ABC):
+    """An abstract class tha defines my general preprocessor blue prints
+
+    """
     @abstractmethod
-    def __init__(self,cols:List,steps:List):
+    def __init__(self):
         pass
 
     @abstractmethod
     def get_transformer(self):
+        """returns a transformer
+        """
         pass
 
 
 class GetDefaultsPreprocessor(GetPipeline):
-    '''
-    a class to get a transformer that uses most frequent value to fill Null values and 
-    uses Ordinal Encoder for categorical values and also StandardScaler for all features
-    '''
+    """A default preprocessor that will be useed in machine learning models
+    """
     def __init__(self,schemat_dtypes=SchemaDataType()):
+        """
+
+        Args:
+            schemat_dtypes : _description_. Defaults to SchemaDataType() where different data are
+            defined types for different columns.
+        """
         self.schemat_dtypes = schemat_dtypes
 
     def get_transformer(self):
+        """a method to get transformer
+
+        Returns:
+            a preprocessor with fit and fit_transform methods
+        """
         logging.info(""" GetDefaultsPreprocessor: Getting default preprocessor with transformer that uses most frequent
                         value to fill Null values and uses Ordinal Encoder for categorical values
                         and also StandardScaler for all features""")
@@ -69,6 +83,11 @@ class GetDefaultsPreprocessor(GetPipeline):
 
 
 class SimpleNullFiller(BaseEstimator, TransformerMixin):
+    """A transformer to fill null values of categorical types with None and numerical columns with -1
+    methods:
+        fit:
+        transform: transforms null values according to dictionary provided in __init__ method
+    """
     def __init__(self,key_dic={'O':'None','num':-1}):
         self.key_dic = key_dic
 
@@ -77,7 +96,6 @@ class SimpleNullFiller(BaseEstimator, TransformerMixin):
     
     def transform(self,X,y=None):
         self.X = X
-        # logging.info("""Filling Null values with -1 for Numerical fetures and Non for categircal features""")
         for col_name in X.columns:
             if X[col_name].dtype =='O':
                 X[col_name]= X[col_name].fillna(self.key_dic['O'])
@@ -95,6 +113,10 @@ class SimpleNullFiller(BaseEstimator, TransformerMixin):
                 
   
 class GetSimpleTransformer(GetPipeline):
+    """A transformer to fill null values with Simple null filler and transform categorical columns 
+    using ordinal encoder
+
+    """
     def __init__(self,schemat_dtypes=SchemaDataType()):
         self.schemat_dtypes = schemat_dtypes   
     def get_transformer(self):
@@ -134,6 +156,9 @@ class GetSimpleTransformer(GetPipeline):
 
 
 class GetCatboostTransformer(GetPipeline):
+    """a class that creates transformer for catboost classifiyer where we only fill null values
+    using SimpleNullFiller and scale numerical columns.
+    """
     def __init__(self,schemat_dtypes=SchemaDataType()):
         self.schemat_dtypes = schemat_dtypes
     
@@ -150,7 +175,6 @@ class GetCatboostTransformer(GetPipeline):
                             ('numerical_transformet',StandardScaler(),num_columns)],
                 remainder='passthrough'
             )
-            # ('scaler', FunctionTransformer(lambda x: pd.DataFrame(StandardScaler().fit_transform(x), columns=x.columns))),
 
             preprocessor = Pipeline(steps=[
                 ('SimNullfiller',simple_null_filler_pipe),

@@ -13,7 +13,7 @@ def get_requirments(req_file):
 
 
 setup(
-    name="flu_shot_prediction",
+    name="flu-shot-prediction",
     version = "0.0.1",
     # description="***",
     author_email='alr.sasani@gmail.com',

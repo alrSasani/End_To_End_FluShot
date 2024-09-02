@@ -87,4 +87,4 @@ def register_from_saved_models():
         models_dictionart = 'MODELS_TO_BE_TRAINED Load models from saved directory'
         register_models(models_dictionart)
     except Exception as e:
-        CustomException(e,sys)
+        CustomException("NotImplemented",sys)

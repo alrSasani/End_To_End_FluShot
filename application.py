@@ -7,7 +7,11 @@ from src.pipelines import training_pipeline,mlflow_model_registry_pipeline
 from src.training_config import (MODELS_TO_BE_TRAINED, PARAMETER_GRID,
                                      TrainConfiguration,RawDataPathConfig)
 
-def application():
+def run_application():
+    """
+    a simple function to train models, register the models in mlflow
+    and finaly run django as a server for prediction
+    """
     # main_path = os.getcwd()
 
     mlflow_model_registry_pipeline.register_from_training_pipeline(cv_nfold=2, iter=2, scoring='roc_auc',
@@ -18,4 +22,4 @@ def application():
     os.system('python model_deployment/manage.py runserver')
     
 if __name__ == "__main__":
-    application()
+    run_application()
